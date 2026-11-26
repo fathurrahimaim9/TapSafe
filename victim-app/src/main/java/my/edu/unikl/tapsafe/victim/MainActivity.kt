@@ -46,7 +46,6 @@ class MainActivity : Activity() {
     private lateinit var status: TextView
     private lateinit var actionArea: LinearLayout
     private var protectedMode = false
-    private var hideOverlays = false
     private var actionCount = 0
     private var receiverRegistered = false
 
@@ -206,12 +205,6 @@ class MainActivity : Activity() {
                 renderActionButton()
                 refreshControlLabels()
             })
-            addView(labButton("Toggle hide overlays (Android 12+): ${if (hideOverlays) "ON" else "OFF"}") {
-                hideOverlays = !hideOverlays
-                applyOverlayHiding()
-                status.text = "Hide overlays: ${if (hideOverlays) "ON" else "OFF"}"
-                refreshControlLabels()
-            })
             addView(labButton("View local test results") { showResults() })
             addView(labButton("Clear local test results") {
                 ResultStore.clear(this@MainActivity)
@@ -219,8 +212,6 @@ class MainActivity : Activity() {
             })
             addView(labButton("Emergency stop / safe reset") {
                 protectedMode = true
-                hideOverlays = true
-                applyOverlayHiding()
                 sendBroadcast(Intent("my.edu.unikl.tapsafe.overlay.STOP_OVERLAY").setPackage("my.edu.unikl.tapsafe.overlay"))
                 renderActionButton()
                 refreshControlLabels()
@@ -262,15 +253,6 @@ class MainActivity : Activity() {
         actionArea.addView(button, LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, 160
         ).apply { topMargin = 20 })
-    }
-
-    private fun applyOverlayHiding() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            window.setHideOverlayWindows(hideOverlays)
-        } else if (hideOverlays) {
-            Toast.makeText(this, "Hide overlays requires Android 12 or newer", Toast.LENGTH_LONG).show()
-            hideOverlays = false
-        }
     }
 
     private fun launchOverlayDemo() {
