@@ -76,6 +76,23 @@ adb install -r overlay-demo/build/outputs/apk/debug/overlay-demo-debug.apk
 8. In TapSafe Victim Lab, enable protected mode and repeat the test; the protected button should reject the obscured touch instead.
 9. View local test results. The CSV is stored in the victim app's private internal files directory as `tapsafe-lab-results.csv`.
 
+## Screenshots
+
+| 1. Victim app (normal screen) | 2. Authorization notice |
+|:---:|:---:|
+| <img src="docs/screenshots/01-victim-app.png" width="300" alt="Victim app normal screen"> | <img src="docs/screenshots/02-authorization-notice.png" width="300" alt="Authorization notice"> |
+| JuneBank (Demo) UI with the Confirm Transfer button and lab controls. | Startup notice referencing the Computer Crimes Act 1997. The lab controls stay unavailable until the user confirms. |
+
+| 3. Overlay running over the victim app | 4. Protected mode OFF |
+|:---:|:---:|
+| <img src="docs/screenshots/03-overlay-running.png" width="300" alt="Overlay over victim app"> | <img src="docs/screenshots/04-protected-off.png" width="300" alt="Protected mode off result"> |
+| Clearly labelled lab test overlay with the hidden button over Confirm Transfer. | Status line showing the result of the test with protected mode OFF (for example "TAPJACKED..."). |
+
+| 5. Protected mode ON |
+|:---:|
+| <img src="docs/screenshots/05-protected-on-blocked.png" width="300" alt="Protected mode on blocked result"> |
+| Status line showing "BLOCKED: PARTIAL_OCCLUSION_BLOCKED". The protected button rejected the obscured touch. |
+
 ### Usage examples
 
 Pull the local result log from a debug build on your own emulator/device:
